@@ -16,8 +16,8 @@ public class EWrong1 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -28,13 +28,18 @@ public class EWrong1 extends javax.swing.JFrame {
         setBackground(new java.awt.Color(153, 153, 153));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
@@ -65,16 +70,6 @@ public class EWrong1 extends javax.swing.JFrame {
         jPanel1.add(jButton2);
         jButton2.setBounds(670, 10, 40, 40);
 
-        jLabel2.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 204));
-        jLabel2.setText("Check your USERNAME and PASSWORD twice.");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jLabel2.setFocusable(false);
-        jLabel2.setOpaque(true);
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(190, 390, 460, 20);
-
         jLabel3.setBackground(new java.awt.Color(102, 102, 102));
         jLabel3.setFont(new java.awt.Font("Serif", 1, 30)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -83,6 +78,13 @@ public class EWrong1 extends javax.swing.JFrame {
         jLabel3.setOpaque(true);
         jPanel1.add(jLabel3);
         jLabel3.setBounds(120, 190, 490, 60);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 255, 204));
+        jLabel2.setText("   **Check your Email crendentials Twice.**");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(210, 390, 320, 30);
 
         jLabel5.setBackground(new java.awt.Color(102, 102, 102));
         jLabel5.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
@@ -112,7 +114,7 @@ public class EWrong1 extends javax.swing.JFrame {
         jLabel8.setFocusable(false);
         jLabel8.setOpaque(true);
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(130, 350, 530, 50);
+        jLabel8.setBounds(130, 350, 530, 40);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -128,11 +130,15 @@ public class EWrong1 extends javax.swing.JFrame {
         if( evt.getKeyChar() == KeyEvent.VK_ENTER )
            this.dispose();
     }//GEN-LAST:event_jButton2KeyPressed
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        this.dispose();
+    }//GEN-LAST:event_formWindowDeactivated
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 EWrong1 d = new EWrong1();
-                d.setSize(720,430);
+                d.setSize(720,450);
                 d.setVisible(true);
             }
         });

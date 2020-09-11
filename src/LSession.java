@@ -1,26 +1,43 @@
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+
 public class LSession extends javax.swing.JFrame {
    
     static LSession obj;
-    static String lib = Dialog2.lib;
+    static String lib ;
     public LSession() {
         initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\STAR COMPUTER\\Documents\\NetBeansProjects\\Practice\\src\\img\\StrikInnovLogo.png"));
+        new Alert();
+        if( Alert.interval != 0 )
+        jMenuItem7.setIcon(new ImageIcon("C:\\Users\\STAR COMPUTER\\Documents\\NetBeansProjects\\Practice\\src\\img\\red dot.jpg"));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -28,7 +45,6 @@ public class LSession extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,7 +58,7 @@ public class LSession extends javax.swing.JFrame {
         jMenuItem5.setBackground(new java.awt.Color(255, 255, 255));
         jMenuItem5.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
         jMenuItem5.setForeground(new java.awt.Color(51, 51, 51));
-        jMenuItem5.setText("Change Name");
+        jMenuItem5.setText(" Change Name");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -52,7 +68,7 @@ public class LSession extends javax.swing.JFrame {
 
         jMenuItem2.setBackground(new java.awt.Color(255, 255, 255));
         jMenuItem2.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        jMenuItem2.setText("Change Email.");
+        jMenuItem2.setText(" Change Email.");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -62,7 +78,7 @@ public class LSession extends javax.swing.JFrame {
 
         jMenuItem6.setBackground(new java.awt.Color(255, 255, 255));
         jMenuItem6.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        jMenuItem6.setText("Change Contact");
+        jMenuItem6.setText(" Change Contact");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -72,7 +88,7 @@ public class LSession extends javax.swing.JFrame {
 
         jMenuItem3.setBackground(new java.awt.Color(255, 255, 255));
         jMenuItem3.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        jMenuItem3.setText("Change Address");
+        jMenuItem3.setText(" Change Address");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -82,13 +98,58 @@ public class LSession extends javax.swing.JFrame {
 
         jMenuItem1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuItem1.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
-        jMenuItem1.setText("Change Password");
+        jMenuItem1.setText(" Change Password");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
         jPopupMenu1.add(jMenuItem1);
+
+        jPopupMenu2.setBackground(new java.awt.Color(255, 255, 255));
+        jPopupMenu2.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
+        jPopupMenu2.setPreferredSize(new java.awt.Dimension(270, 180));
+
+        jMenuItem7.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItem7.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        jMenuItem7.setForeground(new java.awt.Color(51, 51, 51));
+        jMenuItem7.setText(" Alert on Issue");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem7);
+
+        jMenuItem8.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItem8.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        jMenuItem8.setText(" Returned History");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem8);
+
+        jMenuItem9.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItem9.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        jMenuItem9.setText(" Send EBooks ");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem9);
+
+        jMenuItem4.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItem4.setFont(new java.awt.Font("Constantia", 0, 18)); // NOI18N
+        jMenuItem4.setText(" Send Question Paper");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("StrikkInnov.:PUSSGRC");
@@ -104,7 +165,7 @@ public class LSession extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Librarian Session:");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(100, 80, 530, 60);
+        jLabel6.setBounds(260, 240, 530, 60);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.jpg"))); // NOI18N
         jButton1.setToolTipText("Back");
@@ -115,7 +176,7 @@ public class LSession extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(20, 20, 50, 40);
+        jButton1.setBounds(40, 20, 40, 40);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,6 +204,21 @@ public class LSession extends javax.swing.JFrame {
         jPanel1.add(jLabel10);
         jLabel10.setBounds(200, 30, 110, 20);
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Luser2.jpg"))); // NOI18N
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(100, 150, 170, 180);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Others");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(340, 30, 60, 20);
+
         getContentPane().add(jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
@@ -163,7 +239,7 @@ public class LSession extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton4);
-        jButton4.setBounds(190, 0, 330, 60);
+        jButton4.setBounds(290, 0, 330, 60);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
@@ -176,7 +252,7 @@ public class LSession extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton3);
-        jButton3.setBounds(189, 100, 330, 60);
+        jButton3.setBounds(290, 100, 330, 60);
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
@@ -189,30 +265,32 @@ public class LSession extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton5);
-        jButton5.setBounds(190, 200, 330, 60);
+        jButton5.setBounds(290, 200, 330, 60);
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(102, 102, 102));
         jButton6.setText("VIEW ISSUED BOOKS");
         jButton6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton6);
-        jButton6.setBounds(190, 400, 330, 60);
+        jButton6.setBounds(290, 400, 330, 60);
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jButton7.setForeground(new java.awt.Color(102, 102, 102));
         jButton7.setText("VIEW BOOKS");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton7);
-        jButton7.setBounds(190, 300, 330, 60);
-
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
-        jButton8.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(102, 102, 102));
-        jButton8.setText("VIEW BOOKS");
-        jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel3.add(jButton8);
-        jButton8.setBounds(190, 300, 330, 60);
+        jButton7.setBounds(290, 300, 330, 60);
 
         jPanel2.add(jPanel3);
 
@@ -259,23 +337,23 @@ public class LSession extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
          this.setEnabled(false);
-         AddBooks ab = new AddBooks();
-         ab.setSize(1000,830);
-         ab.setVisible(true);
+         AddBooks.obj = new AddBooks();
+         AddBooks.obj.setSize(1000,830);
+         AddBooks.obj.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
          this.setEnabled(false);
-         IssueBook ib = new IssueBook();
-         ib.setSize(1000,830);
-         ib.setVisible(true);
+         IssueBook.obj = new IssueBook();
+         IssueBook.obj.setSize(1000,880);
+         IssueBook.obj.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
             this.setEnabled(false);
-            ReturnBook rb = new ReturnBook();
-            rb.setSize(1000,650);
-            rb.setVisible(true);         
+            ReturnBook.obj = new ReturnBook();
+            ReturnBook.obj.setSize(1000,650);
+            ReturnBook.obj.setVisible(true);         
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -283,64 +361,145 @@ public class LSession extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        LSession.obj.setEnabled(false); 
+        LSession.obj.setEnabled(false);
+        VLib.lib = LSession.lib;
         VLib.dialog = new VLib();
         VLib.dialog.setSize(600,720);
         VLib.dialog.setVisible(true);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        ACname.dialog = new ACname();
-        ACname.dialog.setSize(650,360);
-        ASession.obj.setEnabled(false);
-        ACname.dialog.setVisible(true);
-        ACname.dialog.setCursor();
+                LCname.dialog = new LCname();
+                LCname.dialog.setSize(650,360);
+                LSession.obj.setEnabled(false);
+                LCname.dialog.setVisible(true);
+                LCname.dialog.setCursor();
+                LCname.lib = lib;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ACemail.dialog = new ACemail();
-        ACemail.dialog.setSize(650,360);
-        ASession.obj.setEnabled(false);
-        ACemail.dialog.setVisible(true);
-        ACemail.dialog.setCursor();
+                LCemail.dialog = new LCemail();
+                LCemail.dialog.setSize(650,360);
+                LSession.obj.setEnabled(false);
+                LCemail.dialog.setVisible(true);
+                LCemail.dialog.setCursor();
+                LCemail.lib = lib;
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        ACcontact.dialog = new ACcontact();
-        ACcontact.dialog.setSize(650,360);
-        ASession.obj.setEnabled(false);
-        ACcontact.dialog.setVisible(true);
-        ACcontact.dialog.setCursor();
+        LCcontact.dialog = new LCcontact();
+        LCcontact.dialog.setSize(650,360);
+        LSession.obj.setEnabled(false);
+        LCcontact.dialog.setVisible(true);
+        LCcontact.dialog.setCursor();
+        LCcontact.lib = lib;
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        ACpswd.dialog = new ACpswd();
-        ACpswd.dialog.setSize(700,420);
-        ASession.obj.setEnabled(false);
-        ACpswd.dialog.setVisible(true);
-        ACpswd.dialog.setCursor();
+        LCpswd.dialog = new LCpswd();
+        LCpswd.dialog.setSize(700,420);
+        LSession.obj.setEnabled(false);
+        LCpswd.dialog.setVisible(true);
+        LCpswd.lib = lib;
+        LCpswd.dialog.setCursor();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+        LCaddress.dialog = new LCaddress();
+        LCaddress.dialog.setSize(650,360);
+        LSession.obj.setEnabled(false);
+        LCaddress.dialog.setVisible(true);
+        LCaddress.dialog.setCursor();
+        LCaddress.lib = lib;
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+            ViewBooks.obj = new ViewBooks();
+            ViewBooks.obj.setSize(1000,800);
+            ViewBooks.obj.setVisible(true);
+            ViewBooks.jobj = LSession.obj;
+            LSession.obj.setEnabled(false);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+            Alert.obj = new Alert();
+            Alert.obj.setSize(1100,840);
+            LSession.obj.setEnabled(false);
+            Alert.obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+             JFileChooser jf = new JFileChooser();
+             jf.setMultiSelectionEnabled(true);
+             jf.setPreferredSize(new Dimension(800,500));
+             jf.setDialogTitle("StrikInnov : PUSSGRC");
+             jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+             ArrayList<String> files = new ArrayList();
+             int a = jf.showOpenDialog(this);
+             File[] f = jf.getSelectedFiles();
+             for( File fp : f )
+             files.add(fp.toString());
+             if( a == JFileChooser.APPROVE_OPTION ){
+             this.setEnabled(false);
+             SendQuesPaper.obj = new SendQuesPaper();
+             SendQuesPaper.obj.setSize(1000,650);
+             SendQuesPaper.obj.setVisible(true);
+             SendQuesPaper.obj.setList(files);
+             }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        jPopupMenu2.show(obj, evt.getX()+350, evt.getY()+80);
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+            ViewIssuedBooks.obj = new ViewIssuedBooks();
+            ViewIssuedBooks.obj.setSize(1100,800);
+            LSession.obj.setEnabled(false);
+            ViewIssuedBooks.obj.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+            ViewIssuedHistory.obj = new ViewIssuedHistory();
+            ViewIssuedHistory.obj.setSize(1100,800);
+            LSession.obj.setEnabled(false);
+            ViewIssuedHistory.obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+             JFileChooser jf = new JFileChooser();
+             jf.setMultiSelectionEnabled(true);
+             jf.setPreferredSize(new Dimension(800,500));
+             jf.setDialogTitle("StrikInnov : PUSSGRC");
+             jf.setFileSelectionMode(JFileChooser.FILES_ONLY);
+             ArrayList<String> files = new ArrayList();
+             int a = jf.showOpenDialog(this);
+             File[] f = jf.getSelectedFiles();
+             for( File fp : f )
+             files.add(fp.toString());
+             if( a == JFileChooser.APPROVE_OPTION ){
+             this.setEnabled(false);
+             SendEBooks.obj = new SendEBooks();
+             SendEBooks.obj.setSize(1000,650);
+             SendEBooks.obj.setVisible(true);
+             SendEBooks.obj.setList(files);
+             }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
  
         public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+                  java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() { 
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -348,15 +507,22 @@ public class LSession extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     // End of variables declaration//GEN-END:variables
 }

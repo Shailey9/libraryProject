@@ -1,9 +1,10 @@
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import javafx.scene.Cursor;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class FogotPass extends javax.swing.JFrame {
@@ -57,12 +58,17 @@ public class FogotPass extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -79,11 +85,11 @@ public class FogotPass extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 20, 140, 30);
+        jLabel1.setBounds(20, 20, 150, 30);
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 153));
@@ -93,6 +99,11 @@ public class FogotPass extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jTextField1.setToolTipText("Enter Username");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jTextField1);
         jTextField1.setBounds(410, 250, 180, 22);
 
@@ -177,7 +188,7 @@ public class FogotPass extends javax.swing.JFrame {
             rs = stmt.executeQuery(sql);
             String[] s1 = java.time.LocalTime.now().toString().split(":");
             int t = (int)Float.parseFloat(s1[2]);
-            OTP = Dialog.admin.length()+t+(t+""); 
+            OTP = new Random().nextInt(50)+t+(t+""); 
             String id="";
             String pass="";
             while(rs.next()){ 
@@ -212,14 +223,14 @@ public class FogotPass extends javax.swing.JFrame {
         home1.obj.enable(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void ok(){
         if( jTextField1.getText().equals(OTP) )
         {
              home1.obj.setEnabled(true);
              changepass.obj = new changepass();
              changepass.obj.setSize(650,360);
              changepass.obj.setVisible(true);
+             changepass.S = 1;
              dialog.dispose();
              changepass.obj.setCursor();   
         }else
@@ -229,7 +240,20 @@ public class FogotPass extends javax.swing.JFrame {
             w.setVisible(true);
             w.SetError("ERROR: OTP doesn't Match.");
         }
+    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+         ok();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        home1.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+       if( evt.getKeyChar() == KeyEvent.VK_ENTER ){
+           ok();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
     
 
     public static void main(String args[]) {

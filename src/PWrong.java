@@ -26,13 +26,18 @@ public class PWrong extends javax.swing.JFrame {
         setBackground(new java.awt.Color(153, 153, 153));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
@@ -104,6 +109,10 @@ public class PWrong extends javax.swing.JFrame {
     if( evt.getKeyChar() == KeyEvent.VK_ENTER )
            this.dispose();    
     }//GEN-LAST:event_jButton2KeyPressed
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        this.dispose();
+    }//GEN-LAST:event_formWindowDeactivated
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

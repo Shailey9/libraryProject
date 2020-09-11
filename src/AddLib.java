@@ -55,12 +55,17 @@ public class AddLib extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -77,7 +82,7 @@ public class AddLib extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
@@ -102,7 +107,7 @@ public class AddLib extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("USERNAME *");
+        jLabel2.setText("NAME *");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(210, 300, 130, 40);
 
@@ -265,18 +270,27 @@ public class AddLib extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-            if( jPasswordField1.getText().length() == 0 || jTextField2.getText().length() == 0 || jTextField3.getText().length() == 0 || jTextField4.getText().length() == 0 || jTextField5.getText().length() == 0 || jTextField6.getText().length() == 0 || jTextField7.getText().length() == 0 ){
+        int valid = 0;
+        try{
+            Integer.parseInt(jTextField7.getText());
+            valid = 1;
+        }catch(Exception e){
               Wrong w = new Wrong();
               w.setSize(650,360);
               w.setVisible(true);
-              w.SetError("All fields are Mandatory");        
+              w.SetError("ERROR :  USER_ID should only have Integers.");
+        }if(valid == 1){
+        if( jPasswordField1.getText().trim().length() == 0 || jTextField2.getText().trim().length() == 0 || jTextField3.getText().trim().length() == 0 || jTextField4.getText().trim().length() == 0 || jTextField5.getText().trim().length() == 0 || jTextField6.getText().trim().length() == 0 || jTextField7.getText().trim().length() == 0 ){
+              Wrong w = new Wrong();
+              w.setSize(650,360);
+              w.setVisible(true);
+              w.SetError("ERROR:  All fields are Mandatory");        
         }
         else{
             
             String sql = "insert into librarian values("+jTextField7.getText()+",'"+jTextField2.getText()+"','"+jPasswordField1.getText()+"','"+jTextField3.getText()+"','"+jTextField4.getText()+"','"+jTextField5.getText()+"',"+jTextField6.getText()+")";
-            if( jTextField3.getText().endsWith("@gmail.com") && !(jTextField6.getText().length() < 10) )
-            {
-             
+            if( jTextField3.getText().endsWith("@gmail.com") && !(jTextField6.getText().length() < 10) && !(jTextField6.getText().length() > 12))
+            {       
              try {
              int n = stmt.executeUpdate(sql);
              if( n == 1 )
@@ -309,7 +323,7 @@ public class AddLib extends javax.swing.JFrame {
             w.setSize(650,360);
             w.setVisible(true);   
             w.SetError("Check entered contact and Email once again"); 
-            }}    
+            }}    }
     }//GEN-LAST:event_jButton1ActionPerformed
     static int xx,yy;
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
@@ -320,6 +334,10 @@ public class AddLib extends javax.swing.JFrame {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         this.setLocation(evt.getXOnScreen()-xx, evt.getYOnScreen()-yy);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ASession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

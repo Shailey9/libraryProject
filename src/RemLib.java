@@ -43,12 +43,17 @@ public class RemLib extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -65,7 +70,7 @@ public class RemLib extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
@@ -90,9 +95,9 @@ public class RemLib extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("USERNAME ");
+        jLabel2.setText("NAME ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(210, 350, 110, 40);
+        jLabel2.setBounds(210, 350, 60, 40);
 
         jLabel7.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,7 +167,7 @@ public class RemLib extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 153, 153));
         jLabel14.setText("*");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(310, 350, 30, 29);
+        jLabel14.setBounds(270, 350, 20, 29);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -196,10 +201,10 @@ public class RemLib extends javax.swing.JFrame {
               Wrong w = new Wrong();
               w.setSize(650,360);
               w.setVisible(true);
-              w.SetError(" are Mandatory");
+              w.SetError(" ERROR:  All fields are Mandatory");
         }else{       
         try {
-            String sql = "delete from librarian where id= "+jTextField7.getText()+" and name = '"+jTextField2.getText()+"'";
+            String sql = "delete from librarian where id= '"+jTextField7.getText()+"' and name = '"+jTextField2.getText()+"'";
             int n = stmt.executeUpdate(sql);
              if( n == 1 )
              {
@@ -212,13 +217,13 @@ public class RemLib extends javax.swing.JFrame {
                 Wrong w = new Wrong();
                 w.setSize(650,360);
                 w.setVisible(true);   
-                w.SetError("Falied to update operation.");
+                w.SetError("ERROR:  Falied to update operation. Either check Entered Details or Try Again.");
              }
         } catch (Exception ex) {
             Wrong w = new Wrong();
             w.setSize(650,360);
             w.setVisible(true);   
-            w.SetError(ex.getMessage());
+            w.SetError("ERROR:  "+ex.getMessage());
         }}
     }//GEN-LAST:event_jButton1ActionPerformed
     static int xx,yy;
@@ -230,6 +235,10 @@ public class RemLib extends javax.swing.JFrame {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         this.setLocation(evt.getXOnScreen()-xx,evt.getYOnScreen()-yy);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       ASession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

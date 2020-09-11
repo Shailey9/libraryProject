@@ -3,10 +3,6 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +13,7 @@ public class ViewLib extends javax.swing.JFrame {
     public ViewLib() {
         initComponents();
         Connect();
+        jTable1.setRowHeight(25);
     }
 
     public void Connect()
@@ -50,11 +47,16 @@ public class ViewLib extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -71,7 +73,7 @@ public class ViewLib extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
@@ -96,7 +98,7 @@ public class ViewLib extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("USERNAME *");
+        jLabel2.setText("NAME *");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(210, 300, 130, 40);
 
@@ -146,7 +148,8 @@ public class ViewLib extends javax.swing.JFrame {
         jPanel1.add(jButton3);
         jButton3.setBounds(579, 380, 100, 25);
 
-        jTable1.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Serif", 1, 16)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(102, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -172,11 +175,12 @@ public class ViewLib extends javax.swing.JFrame {
                 "ID", "NAME", "EMAIL", "Address", "CITY", "CONTACT"
             }
         ));
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(100, 520, 830, 180);
+        jScrollPane1.setBounds(100, 520, 830, 220);
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Sorted By:");
@@ -210,7 +214,7 @@ public class ViewLib extends javax.swing.JFrame {
           DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
           model.setRowCount(0);
         try {
-            String sql = "select * from librarian where id = "+jTextField7.getText()+" and name = '"+jTextField2.getText()+"'";
+            String sql = "select * from librarian where id = '"+jTextField7.getText()+"' and name like '%"+jTextField2.getText()+"%'";
             rs = stmt.executeQuery(sql);
             
             int n = 0;
@@ -224,7 +228,7 @@ public class ViewLib extends javax.swing.JFrame {
                 Wrong w = new Wrong();
                 w.setSize(650,360);
                 w.setVisible(true);   
-                w.SetError("Falied to fetch Details..");
+                w.SetError("Error :  Falied to fetch Details. Either check your Details or Try Again.");
              }
         } catch (Exception ex) {
             Wrong w = new Wrong();
@@ -244,7 +248,7 @@ public class ViewLib extends javax.swing.JFrame {
             while(rs.next())
             {
               n++;
-              model.addRow(new Object[]{ rs.getString("id"),rs.getString("name"),rs.getString("email"),rs.getString("address"),rs.getString("city"),rs.getString("contact")});
+              model.addRow(new Object[]{ " "+rs.getString("id")," "+rs.getString("name")," "+rs.getString("email")," "+rs.getString("address")," "+rs.getString("city")," "+rs.getString("contact")});
             }
             if( n == 0 )
             {
@@ -262,48 +266,23 @@ public class ViewLib extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if( jComboBox1.getSelectedIndex() == 0 )
-           {
-               DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-          model.setRowCount(0);
-        try {
-            String sql = "select * from librarian order by id ASC ";
-            rs = stmt.executeQuery(sql);      
-            int n = 0;
-            while(rs.next())
-            {
-              n++;
-              model.addRow(new Object[]{ rs.getString("id"),rs.getString("name"),rs.getString("email"),rs.getString("address"),rs.getString("city"),rs.getString("contact")});
-            }
-            if( n == 0 )
-            {
-                Wrong w = new Wrong();
-                w.setSize(650,360);
-                w.setVisible(true);   
-                w.SetError("Falied to fetch Details..");
-             }
-        } catch (Exception ex) {
-            Wrong w = new Wrong();
-            w.setSize(650,360);
-            w.setVisible(true);   
-            w.SetError(ex.getMessage());
-        }  
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+        String sql = null;
+        if( jComboBox1.getSelectedIndex() == 0 ){
+              sql = "select * from librarian order by id ASC ";
            }
-        else if( jComboBox1.getSelectedIndex() == 1)
-           {
-              DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-          model.setRowCount(0);
+        else if( jComboBox1.getSelectedIndex() == 1){
+             sql = "select * from librarian order by name ASC ";
+           }    
         try {
-            String sql = "select * from librarian order by name ASC ";
             rs = stmt.executeQuery(sql);      
             int n = 0;
-            while(rs.next())
-            {
+            while(rs.next()){
               n++;
-              model.addRow(new Object[]{ rs.getString("id"),rs.getString("name"),rs.getString("email"),rs.getString("address"),rs.getString("city"),rs.getString("contact")});
+              model.addRow(new Object[]{ " "+rs.getString("id")," "+rs.getString("name")," "+rs.getString("email")," "+rs.getString("address")," "+rs.getString("city")," "+rs.getString("contact")});
             }
-            if( n == 0 )
-            {
+            if( n == 0 ){
                 Wrong w = new Wrong();
                 w.setSize(650,360);
                 w.setVisible(true);   
@@ -315,7 +294,6 @@ public class ViewLib extends javax.swing.JFrame {
             w.setVisible(true);   
             w.SetError(ex.getMessage());
         } 
-           }
     }//GEN-LAST:event_jComboBox1ActionPerformed
     static int xx,yy;
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
@@ -326,6 +304,10 @@ public class ViewLib extends javax.swing.JFrame {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         this.setLocation(evt.getXOnScreen()-xx,evt.getYOnScreen()-yy);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ASession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

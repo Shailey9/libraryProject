@@ -8,7 +8,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Sendmail {
-      
     static String MyAccount;
     static String Password;
     public static int smail(String r, String sub,String mymess)
@@ -34,22 +33,21 @@ public class Sendmail {
             Transport.send(message);
         } catch (Exception ex) {
              i--;
-             EWrong1 w = new EWrong1();
-             w.setSize(720,430);
-             w.setVisible(true);   
+             EWrong1 d = new EWrong1();
+             d.setSize(720,450);
+             d.setVisible(true);
         }
         return i;
     }
-
     private static Message prepareMessage(Session session, String MyAccount, String r,String sub, String mymess) {
         try {
             Message m = new MimeMessage(session);
             m.setFrom(new InternetAddress(MyAccount));
-            m.setRecipient(Message.RecipientType.TO, new InternetAddress(r));
+            m.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(r) );
             m.setSubject(sub);
             m.setText(mymess);
             return m;
-        } catch (Exception ex) {
+        } catch (Exception ex) { 
              Wrong w = new Wrong();
              w.setSize(650,360);
              w.setVisible(true);

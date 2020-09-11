@@ -1,6 +1,7 @@
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import javax.swing.JOptionPane;
 public class Dialog2 extends javax.swing.JFrame {
     static Dialog2 dialog;
     static String lib=null;
+    static String email=null;
     Connection con;
     Statement stmt;
     ResultSet rs;
@@ -47,12 +49,17 @@ public class Dialog2 extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -69,11 +76,11 @@ public class Dialog2 extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ( LIBRARIAN LOGIN )");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 20, 240, 30);
+        jLabel1.setBounds(20, 20, 300, 30);
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,11 +96,21 @@ public class Dialog2 extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jTextField1.setToolTipText("Enter Username");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jTextField1);
         jTextField1.setBounds(390, 170, 180, 22);
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField1.setToolTipText("Enter Password");
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField1);
         jPasswordField1.setBounds(390, 220, 180, 23);
 
@@ -139,6 +156,11 @@ public class Dialog2 extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Forgot Password.?");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel5);
         jLabel5.setBounds(270, 290, 120, 20);
 
@@ -153,17 +175,22 @@ public class Dialog2 extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-          String sql =" select * from librarian where id = "+jTextField1.getText()+" and password = '"+jPasswordField1.getText()+"' ";
+    private void login(){
+               try {
+          String sql =" select * from librarian where id = '"+jTextField1.getText()+"' and password = '"+jPasswordField1.getText()+"' ";
+          String s="",p="";
+          String s1=jTextField1.getText(),p1=jPasswordField1.getText();
           rs = stmt.executeQuery(sql);
           int i = 0;
           while(rs.next()){
              i++;  
+             s = rs.getString("id");
+             p = rs.getString("password");
            }
-          if( i==1 )
+          if( s.equals(s1) && p.equals(p1) && i==1 )
           {  
                  lib = jTextField1.getText();
+                 LSession.lib = jTextField1.getText();
                  LSession.obj = new LSession();
                  LSession.obj.setBounds(home1.obj.getBounds());
                  LSession.obj.setVisible(true);
@@ -184,6 +211,9 @@ public class Dialog2 extends javax.swing.JFrame {
             w.setVisible(true);
             w.SetError(ex.getMessage());
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+          login();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -202,14 +232,61 @@ public class Dialog2 extends javax.swing.JFrame {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         this.setLocation(evt.getXOnScreen()-xx,evt.getYOnScreen()-yy);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        home1.obj.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+       if(jTextField1.getText().trim().length() == 0){
+              Wrong w = new Wrong();
+              w.setSize(650,360);
+              w.setVisible(true);
+              w.SetError("ERROR : User_ID field won't be NULL here.");
+           }else{
+        try {
+           String user = "select * from librarian where id = "+jTextField1.getText()+" ";
+           rs = stmt.executeQuery(user);int count=0;
+           while(rs.next()){
+              count++;
+              email = rs.getString("email");
+           }
+           if(count == 1){
+               home1.obj.enable(true);
+               LibFogotPass.dialog = new LibFogotPass();
+               LibFogotPass.dialog.setSize(650,360);
+               this.dispose();
+               LibFogotPass.lib = jTextField1.getText();
+               LibFogotPass.dialog.setVisible(true); 
+               home1.obj.enable(false);
+           }
+           else{
+              Wrong w = new Wrong();
+              w.setSize(650,360);
+              w.setVisible(true);
+              w.SetError("ERROR : User with this ID isn't exist.");
+           }
+        } catch (Exception ex) {
+            Wrong w = new Wrong();
+            w.setSize(650,360);
+            w.setVisible(true);
+            w.SetError(ex.getMessage());    
+        }}
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+         if( evt.getKeyChar() == KeyEvent.VK_ENTER ){
+            jPasswordField1.requestFocus();}
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+         if( evt.getKeyChar() == KeyEvent.VK_ENTER ){
+            login();}
+    }//GEN-LAST:event_jPasswordField1KeyPressed
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                dialog = new Dialog2();
-                dialog.setSize(650,360);
-                dialog.setVisible(true);
-                dialog.setCursor();
             }
         });
     }

@@ -1,12 +1,15 @@
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public class changepass extends javax.swing.JFrame {
     static changepass obj;
+    static int S=0;
+    static String lib=null;
     Connection con;
     Statement stmt;
     ResultSet rs;
@@ -45,12 +48,17 @@ public class changepass extends javax.swing.JFrame {
         jPasswordField2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -67,11 +75,11 @@ public class changepass extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 20, 140, 30);
+        jLabel1.setBounds(20, 20, 150, 30);
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -87,6 +95,11 @@ public class changepass extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField1.setToolTipText("Enter Password");
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField1);
         jPasswordField1.setBounds(420, 160, 180, 23);
 
@@ -119,6 +132,11 @@ public class changepass extends javax.swing.JFrame {
 
         jPasswordField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField2.setToolTipText("Enter Password");
+        jPasswordField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField2KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField2);
         jPasswordField2.setBounds(420, 210, 180, 23);
 
@@ -164,8 +182,8 @@ public class changepass extends javax.swing.JFrame {
         this.setLocation(evt.getXOnScreen()-xx,evt.getYOnScreen()-yy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if( jPasswordField1.getText().trim().length() == 0  )
+    private void ok(){
+      if( jPasswordField1.getText().trim().length() == 0  )
           {
             Wrong w = new Wrong();
             w.setSize(650,360);
@@ -181,8 +199,14 @@ public class changepass extends javax.swing.JFrame {
           }
         else{
             try {
-                String sql = "update admin set password = '"+jPasswordField2.getText()+"' ";
-                int n = stmt.executeUpdate(sql);
+                int n = 0;
+                if(S == 1){
+                  String sql = "update admin set password = '"+jPasswordField2.getText()+"' ";
+                  n = stmt.executeUpdate(sql);
+                }else if( S == 2){
+                  String sql = "update librarian set password = '"+jPasswordField2.getText()+"'  where id = "+lib+" ";
+                  n = stmt.executeUpdate(sql);
+                }
                 if( n == 1 )
                 {       
                   Done d = new Done();
@@ -202,8 +226,24 @@ public class changepass extends javax.swing.JFrame {
                    w.SetError("ERROR: " + ex.getMessage() );
             }
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ok();
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        home1.obj.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            jPasswordField2.requestFocus();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jPasswordField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField2KeyPressed
+        ok();
+    }//GEN-LAST:event_jPasswordField2KeyPressed
 
     public static void main(String args[]) {
 

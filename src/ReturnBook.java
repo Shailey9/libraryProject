@@ -1,8 +1,9 @@
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.awt.Cursor;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class ReturnBook extends javax.swing.JFrame {
@@ -10,6 +11,11 @@ public class ReturnBook extends javax.swing.JFrame {
     Statement stmt;
     ResultSet rs;
     
+    static ReturnBook obj;
+    static String OTP;
+    static String Data="";
+    static String call_no,sId;
+    static String email = "";
     public ReturnBook() {
         initComponents();
         Connect();
@@ -43,12 +49,17 @@ public class ReturnBook extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -65,7 +76,7 @@ public class ReturnBook extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
@@ -90,19 +101,19 @@ public class ReturnBook extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("USER_ID*");
+        jLabel2.setText("STUDENT_ID*");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(220, 380, 130, 40);
+        jLabel2.setBounds(220, 370, 130, 40);
 
         jLabel7.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("CALL_NO *");
+        jLabel7.setText("BOOK_ID *");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(220, 310, 130, 40);
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(430, 390, 280, 22);
+        jTextField2.setBounds(430, 380, 280, 22);
 
         jTextField7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField7);
@@ -140,7 +151,7 @@ public class ReturnBook extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(440, 540, 100, 25);
+        jButton1.setBounds(400, 540, 100, 25);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setForeground(new java.awt.Color(102, 102, 102));
@@ -151,11 +162,11 @@ public class ReturnBook extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton3);
-        jButton3.setBounds(600, 540, 100, 25);
+        jButton3.setBounds(560, 540, 100, 25);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(1004, 788));
+        setSize(new java.awt.Dimension(1004, 628));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -177,7 +188,8 @@ public class ReturnBook extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        call_no = jTextField7.getText();
+        sId = jTextField2.getText();
         if( jTextField7.getText().trim().length() == 0 || jTextField2.getText().trim().length() == 0 ){
               Wrong w = new Wrong();
               w.setSize(650,360);
@@ -185,39 +197,67 @@ public class ReturnBook extends javax.swing.JFrame {
               w.SetError("All fields are Mandatory");
         }
         else{
-          try {
-            String sql = "Delete from student where call_no ='"+jTextField7.getText()+"' and sId = "+jTextField2.getText()+" ";            
-            int n = stmt.executeUpdate(sql);
-            int q=0;
-            if( n == 1 )
-             {
-                 rs = stmt.executeQuery("select * from book where call_no = '"+jTextField7.getText()+"' ");
-                 while(rs.next() ){
-                    q = Integer.parseInt(rs.getString("issued"));
-                 }
-                 int s = stmt.executeUpdate("update book set issued = "+(q-1)+" where call_no = '"+jTextField7.getText()+"' ");
-                 if(s == 1)
-                 {
-                    Done d = new Done();
-                    d.setSize(650,360);
-                    d.setVisible(true);
-                    jTextField2.setText(null);
-                    jTextField7.setText(null);
-                 }
-             }
-            else{
-              Wrong w = new Wrong();
-              w.setSize(650,360);
-              w.setVisible(true);
-              w.SetError(" Check your entered Details ");
-            }
-        } catch (SQLException ex) {
+          try {            
+               Integer.parseInt(sId);
+               try{ 
+                  String sql = "select * from student where call_no ='"+jTextField7.getText()+"' and sId = "+jTextField2.getText()+" ";
+                  rs=stmt.executeQuery(sql);int count=0;
+                   while(rs.next()){
+                       email = rs.getString("email") ;
+                       count++;
+                   } if(count==1)
+                     {
+                         String usql = " select * from admin ";
+                         rs=stmt.executeQuery(usql);int c=0;
+                         String MyAcc="";
+                         String pass="";
+                          while(rs.next()){
+                              MyAcc = rs.getString("email");
+                              pass =  rs.getString("epassword");      
+                              c++;
+                          }
+                          if(c==1){
+                              String[] s1 = java.time.LocalTime.now().toString().split(":");
+                              int t = (int)Float.parseFloat(s1[2]);
+                              OTP = new Random().nextInt(50)+t+(t+"");
+                              Sendmail.MyAccount = MyAcc ;
+                              Sendmail.Password = pass ;
+                              this.setCursor(Cursor.WAIT_CURSOR);
+                              int x = Sendmail.smail(email, "StrikInnov:PUSSGRC, Book Returned Authentication.", "Dear Student,\n\n\t\tHere is your OTP  :  "+OTP+""+"\n\nBook_ID : "+jTextField7.getText()+" is under returned process.\n\n");
+                              this.setCursor(Cursor.DEFAULT_CURSOR);
+                              if(x == 1){
+                              this.setEnabled(false);
+                              OTP2.obj = new OTP2();
+                              OTP2.obj.setSize(650,370);
+                              OTP2.obj.setVisible(true);
+                              OTP2.obj.setCursor();
+                              }
+                          }else{
+                              Wrong w = new Wrong();
+                              w.setSize(650,360);
+                              w.setVisible(true);
+                              w.SetError("ERROR:  Something went wrong."); 
+                          }
+                     }else{
+                         Wrong w = new Wrong();
+                         w.setSize(650,360);
+                         w.setVisible(true);
+                         w.SetError("ERROR:  This Book_ID and Student_ID dosen't have any Record.");
+                     }
+               }catch(Exception ex){
+                    Wrong w = new Wrong();
+                    w.setSize(650,360);
+                    w.setVisible(true);
+                    w.SetError(ex.getMessage());
+             }                 
+        }catch (Exception ex) {
              Wrong w = new Wrong();
              w.setSize(650,360);
              w.setVisible(true);
-             w.SetError(ex.getMessage());
+             w.SetError("ERROR:  Student_ID must be Integer.");
         }}
     }//GEN-LAST:event_jButton1ActionPerformed
+    
     static int xx,yy;
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
          xx = evt.getX();
@@ -228,13 +268,18 @@ public class ReturnBook extends javax.swing.JFrame {
         this.setLocation(evt.getXOnScreen()-xx, evt.getYOnScreen()-yy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        LSession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            ReturnBook rb = new ReturnBook();
-            rb.setSize(1000,830);
-            rb.setVisible(true);
+            obj = new ReturnBook();
+            obj.setSize(1000,650);
+            obj.setVisible(true);
         });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

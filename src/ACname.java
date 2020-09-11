@@ -1,10 +1,9 @@
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ACname extends javax.swing.JFrame {
@@ -48,12 +47,17 @@ public class ACname extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -70,11 +74,11 @@ public class ACname extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("StrikInnov:PUSSGRC ");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 20, 130, 30);
+        jLabel1.setBounds(20, 20, 140, 30);
 
         jLabel6.setFont(new java.awt.Font("Serif", 1, 30)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -96,11 +100,21 @@ public class ACname extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jTextField1.setToolTipText("Enter Username");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jTextField1);
         jTextField1.setBounds(390, 170, 180, 22);
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField1.setToolTipText("Enter Password");
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField1);
         jPasswordField1.setBounds(390, 220, 180, 23);
 
@@ -157,8 +171,9 @@ public class ACname extends javax.swing.JFrame {
         ASession.obj.enable(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ok(){
+              if( jTextField1.getText().trim().length() != 0 )
+         { 
         try {
             String q = "select * from admin where name = '"+admin+"' and password = '"+jPasswordField1.getText()+"' ";
             rs = stmt.executeQuery(q);int count = 0;
@@ -187,6 +202,7 @@ public class ACname extends javax.swing.JFrame {
                int i = stmt.executeUpdate(nsql);
                if(i==1)
                {
+                  ACname.admin = jTextField1.getText();
                   ASession.obj.setEnabled(true);
                   this.dispose();
                   ASession.admin = jTextField1.getText();
@@ -215,8 +231,19 @@ public class ACname extends javax.swing.JFrame {
                   w.SetError("ERROR: Wrong Password.");                      
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ACname.class.getName()).log(Level.SEVERE, null, ex);
+                  Wrong w = new Wrong();
+                  w.setSize(650,360);
+                  w.setVisible(true);
+                  w.SetError("ERROR: "+ex.getMessage());
+        }}else{
+                  Wrong w = new Wrong();
+                  w.setSize(650,360);
+                  w.setVisible(true);
+                  w.SetError("ERROR:  Name field won't be Null.");
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         ok();
     }//GEN-LAST:event_jButton1ActionPerformed
     private static int xx,yy;
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
@@ -235,6 +262,22 @@ public class ACname extends javax.swing.JFrame {
         else
         jPasswordField1.setEchoChar((char)8226);
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ASession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER ){
+            jPasswordField1.requestFocus();
+      }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+         if(evt.getKeyChar() == KeyEvent.VK_ENTER ){
+            ok();
+      }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -1,14 +1,13 @@
 
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import java.awt.Toolkit;
+
 
 public class home1 extends javax.swing.JFrame {
    
     public static home1 obj; 
     public home1() {
-        initComponents();
+        initComponents(); 
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\STAR COMPUTER\\Documents\\NetBeansProjects\\Practice\\src\\img\\StrikInnovLogo.png"));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -111,11 +110,6 @@ public class home1 extends javax.swing.JFrame {
         jRadioButton2.setText(" LIBRARIAN");
         jRadioButton2.setToolTipText("Login as Librarian");
         jRadioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
         jPanel3.add(jRadioButton2);
         jRadioButton2.setBounds(260, 230, 140, 33);
 
@@ -142,31 +136,30 @@ public class home1 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          if(jRadioButton1.isSelected())
         {
-            Dialog d = new Dialog();
-            d.setSize(650,360);
+            Dialog.dialog = new Dialog();
+            Dialog.dialog.setSize(650,360);
             this.enable(false);
-            d.setVisible(true);
-            d.setCursor();
+            Dialog.dialog.setVisible(true);
+            Dialog.dialog.setCursor();
         }
         if(jRadioButton2.isSelected())
         {
-            Dialog2 d = new Dialog2();
-            d.setSize(650,360);
+            Dialog2.dialog = new Dialog2();
+            Dialog2.dialog.setSize(650,360);
             this.enable(false);
-            d.setVisible(true);
-            d.setCursor();
+            Dialog2.dialog.setVisible(true);
+            Dialog2.dialog.setCursor();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() { 
                obj = new home1();
-               obj.setSize(1400,950);
+               obj.setBounds(0,0,1920,1080);
                obj.setVisible(true);
+               StrikInnov.obj = new StrikInnov();
+               StrikInnov.obj.setBounds(0,0,1920,1080);
+               StrikInnov.obj.setVisible(true);
             }
         });
     }

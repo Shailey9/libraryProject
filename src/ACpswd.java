@@ -1,5 +1,6 @@
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -47,12 +48,17 @@ public class ACpswd extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPasswordField3 = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -89,6 +95,11 @@ public class ACpswd extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField1.setToolTipText("Enter Password");
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField1);
         jPasswordField1.setBounds(420, 280, 180, 23);
 
@@ -143,6 +154,11 @@ public class ACpswd extends javax.swing.JFrame {
 
         jPasswordField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField2.setToolTipText("Enter Password");
+        jPasswordField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField2KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField2);
         jPasswordField2.setBounds(420, 240, 180, 23);
 
@@ -154,6 +170,11 @@ public class ACpswd extends javax.swing.JFrame {
 
         jPasswordField3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPasswordField3.setToolTipText("Enter Password");
+        jPasswordField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField3KeyPressed(evt);
+            }
+        });
         jPanel1.add(jPasswordField3);
         jPasswordField3.setBounds(420, 200, 180, 23);
 
@@ -167,9 +188,8 @@ public class ACpswd extends javax.swing.JFrame {
         ASession.obj.enable(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+    private void ok(){
+              try {
             String q = "select * from admin where name = '"+admin+"' and password = '"+jPasswordField3.getText()+"' ";
             rs = stmt.executeQuery(q);int count = 0;
             while(rs.next())
@@ -211,8 +231,11 @@ public class ACpswd extends javax.swing.JFrame {
                   Wrong w = new Wrong();
                   w.setSize(650,360);
                   w.setVisible(true);
-                  w.SetError("ERROR: Wrong Password.");
+                  w.SetError("ERROR: "+ex.getMessage());
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+          ok();
     }//GEN-LAST:event_jButton1ActionPerformed
     private static int xx,yy;
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
@@ -236,6 +259,26 @@ public class ACpswd extends javax.swing.JFrame {
         jPasswordField2.setEchoChar((char)8226);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ASession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jPasswordField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField3KeyPressed
+         if( evt.getKeyChar() == KeyEvent.VK_ENTER ){
+             jPasswordField2.requestFocus();
+         }
+    }//GEN-LAST:event_jPasswordField3KeyPressed
+
+    private void jPasswordField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField2KeyPressed
+          if( evt.getKeyChar() == KeyEvent.VK_ENTER ){
+             jPasswordField1.requestFocus();
+         }
+    }//GEN-LAST:event_jPasswordField2KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        ok();
+    }//GEN-LAST:event_jPasswordField1KeyPressed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

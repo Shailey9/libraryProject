@@ -8,7 +8,7 @@ public class AddBooks extends javax.swing.JFrame {
     Connection con;
     Statement stmt;
     ResultSet rs;
-    
+    static AddBooks obj;
     public AddBooks() {
         initComponents();
         Connect();
@@ -51,17 +51,23 @@ public class AddBooks extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StrikkInnov:PUSSGRC( ADMIN LOGIN)");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(72, 72, 72));
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(204, 204, 255));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -74,11 +80,17 @@ public class AddBooks extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Serif", 0, 13)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("StrikInnov:PUSSGRC ");
+        jLabel1.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 153));
+        jLabel1.setText("Add in Existings");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 20, 240, 30);
+        jLabel1.setBounds(750, 20, 170, 24);
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cross.jpg"))); // NOI18N
@@ -89,69 +101,69 @@ public class AddBooks extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(950, 10, 40, 40);
+        jButton2.setBounds(940, 10, 40, 40);
 
         jLabel6.setFont(new java.awt.Font("Serif", 1, 65)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Add Book");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(350, 70, 310, 60);
+        jLabel6.setBounds(350, 120, 310, 60);
 
         jLabel2.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("BOOK_NAME *");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(210, 300, 150, 40);
+        jLabel2.setBounds(210, 350, 150, 40);
 
         jLabel3.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("AUTHOR_NAME*");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(210, 370, 160, 30);
+        jLabel3.setBounds(210, 420, 160, 30);
 
         jLabel4.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("PUBLISHER *");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(210, 430, 130, 30);
+        jLabel4.setBounds(210, 480, 130, 30);
 
         jLabel5.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("DATE (Y-M-D)*");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(210, 550, 140, 30);
+        jLabel5.setBounds(210, 600, 140, 30);
 
         jLabel7.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("CALL_NO*");
+        jLabel7.setText("BOOK_ID*");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(210, 240, 130, 40);
+        jLabel7.setBounds(210, 290, 130, 40);
 
         jLabel9.setFont(new java.awt.Font("Serif", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("QUANTITY *");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(210, 490, 130, 30);
+        jLabel9.setBounds(210, 540, 130, 30);
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField2);
-        jTextField2.setBounds(420, 310, 280, 22);
+        jTextField2.setBounds(420, 360, 280, 22);
 
         jTextField3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField3);
-        jTextField3.setBounds(420, 430, 280, 22);
+        jTextField3.setBounds(420, 480, 280, 22);
 
         jTextField4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField4);
-        jTextField4.setBounds(420, 490, 280, 22);
+        jTextField4.setBounds(420, 540, 280, 22);
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField5);
-        jTextField5.setBounds(420, 550, 280, 22);
+        jTextField5.setBounds(420, 600, 280, 22);
 
         jTextField7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField7);
-        jTextField7.setBounds(420, 250, 280, 22);
+        jTextField7.setBounds(420, 300, 280, 22);
 
         jCheckBox1.setBackground(new java.awt.Color(102, 102, 102));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,12 +174,12 @@ public class AddBooks extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBox1);
-        jCheckBox1.setBounds(710, 550, 130, 25);
+        jCheckBox1.setBounds(710, 600, 130, 25);
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("NOTE:  All fields  *  are mandatory. Fill them carefully.");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(150, 180, 330, 16);
+        jLabel10.setBounds(150, 230, 330, 16);
 
         jCheckBox2.setBackground(new java.awt.Color(102, 102, 102));
         jCheckBox2.setFont(new java.awt.Font("Serif", 1, 15)); // NOI18N
@@ -179,12 +191,12 @@ public class AddBooks extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBox2);
-        jCheckBox2.setBounds(200, 650, 530, 29);
+        jCheckBox2.setBounds(200, 680, 530, 29);
 
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(140, 150, 840, 16);
+        jLabel11.setBounds(140, 200, 840, 16);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(102, 102, 102));
@@ -210,7 +222,13 @@ public class AddBooks extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jTextField1);
-        jTextField1.setBounds(420, 370, 280, 22);
+        jTextField1.setBounds(420, 420, 280, 22);
+
+        jLabel8.setFont(new java.awt.Font("Serif", 0, 15)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("StrikInnov:PUSSGRC ");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(30, 20, 160, 30);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -243,14 +261,29 @@ public class AddBooks extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        if( jTextField1.getText().length() == 0 || jTextField2.getText().length() == 0 || jTextField3.getText().length() == 0 || jTextField4.getText().length() == 0 || jTextField5.getText().length() == 0 || jTextField7.getText().length() == 0 ){
+        int valid = 0;
+        try{
+           Integer.parseInt(jTextField4.getText());
+           valid = 1;
+        }catch(Exception e){
               Wrong w = new Wrong();
               w.setSize(650,360);
               w.setVisible(true);
-              w.SetError("All fields are Mandatory");        
+              w.SetError("ERROR: Quantity field should have Integer value. ");
         }
-        else{
+        if( Integer.parseInt(jTextField4.getText()) < 1 ){
+              Wrong w = new Wrong();
+              w.setSize(650,360);
+              w.setVisible(true);
+              w.SetError("ERROR:  Quantity field won't be zero or negative. "); 
+        }
+        else if( jTextField1.getText().length() == 0 || jTextField2.getText().length() == 0 || jTextField3.getText().length() == 0 || jTextField4.getText().length() == 0 || jTextField5.getText().length() == 0 || jTextField7.getText().length() == 0 ){
+              Wrong w = new Wrong();
+              w.setSize(650,360);
+              w.setVisible(true);
+              w.SetError("ERROR:  All fields are Mandatory");        
+        }
+        else if( valid == 1 ){
         try {
             String sql ="insert into book values('"+jTextField7.getText()+"','"+jTextField2.getText()+"','"+jTextField1.getText()+"','"+jTextField3.getText()+"',"+jTextField4.getText()+","+0+",'"+jTextField5.getText()+"')"; 
             int n = stmt.executeUpdate(sql);
@@ -295,12 +328,22 @@ public class AddBooks extends javax.swing.JFrame {
           jTextField5.setText(null);  
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        LSession.obj.enable(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+            AddInExist.dialog = new AddInExist();
+            AddInExist.dialog.setSize(650,360);
+            this.setEnabled(false);
+            AddInExist.dialog.setVisible(true);
+            AddInExist.dialog.setCursor();
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddBooks ab = new AddBooks();
-                ab.setSize(1000,830);
-                ab.setVisible(true); 
+                        
             }
         });
     }
@@ -320,6 +363,7 @@ public class AddBooks extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
